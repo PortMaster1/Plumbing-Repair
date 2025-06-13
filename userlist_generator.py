@@ -8,6 +8,8 @@ entry_template = """username Cleartext-Password := "password"
 class Generate:
 	def __init__(self, path="./users.txt"):
 		self.path = path
+		self.users = []
+		self.accounts = []
 	
 	def generate(self):
 		users = self.get_users()
@@ -19,6 +21,7 @@ class Generate:
 		return "".join(secrets.choice(characters) for _ in range(length))
 	
 	def get_users(self):
+		self.users.clear()
 		users = []
 		try:
 			with open(self.path, "r") as f:
@@ -27,22 +30,33 @@ class Generate:
 					line = line.lower()
 					line = line.strip()
 					users.append(line)
+			self.users = users.copy()
 			return users
 		except e:
 			print("Error reading file.")
 			raise e
 	
-	def setup_accounts(self, users):
+	def setup_accounts(self):
+		self.accounts.clear()
 		accounts = []
-		for user in users:
-			accounts.append(entry_template.replace("username", user).replace("password", generate_ppsk()))
+		for user in self.users:
+			accounts.append(entry_template.replace("username", user).replace("password", self.generate_ppsk()))
 		for account in accounts:
 			print(account)
+		self.accounts = accounts.copy()
 		return accounts
 	
-	def write_userfile(self, accounts):
+	def write_userfile(self):
 		with open("./authorize", "w") as f:
-			f.writelines(accounts)
+			f.writelines(self.accounts)
+
+
+class Reissue:
+	def __init__(self, generator=class):
+		self.g = generator
+
+	def find_user(self, name):
+		for user in self.g.users:
 
 if __name__ == "__main__":
 	g = Generate()
