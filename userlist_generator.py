@@ -1,7 +1,7 @@
 import os, sys, string, secrets
 
 
-entry_template = """username := "password"
+entry_template = """username Cleartext-Password := "password"
 		Reply-Message := "Welcome to the network!"
 """
 
