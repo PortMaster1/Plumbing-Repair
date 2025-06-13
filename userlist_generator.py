@@ -5,6 +5,9 @@ entry_template = """username Cleartext-Password := "password"
 		Reply-Message := "Welcome to the network!"
 """
 
+infile = "./authorize"
+outfile = "./authorize.tmp"
+
 class Generate:
 	def __init__(self, path="./users.txt"):
 		self.path = path
@@ -54,6 +57,7 @@ class Generate:
 class Reissue:
 	def __init__(self, generator=class):
 		self.g = generator
+		self.account = None
 	
 	def get_accounts(self):
 		with open("./authorize", "r") as f:
@@ -62,21 +66,32 @@ class Reissue:
 				if line.startswith("\t\t"):
 					next()
 				accounts.append(line)
+		return accounts
 
 	def find_user(self, name):
 		name = name.replace(" ", ".")
 		name = name.lower()
 		name = name.strip()
-		matches = [ user for user in users if user == name ]
-		if matches == []:
-			raise ValueError()
 		accounts = self.get_accounts()
+		found = None
+		for account in accounts:
+			if name in account:
+				found = account
+		if not found:
+			raise ValueError()
+		self.accounr = account
+		return account
+
+	def replace_ppsk(self, account=None):
+		if not account:
+			account = self.account
+		with open("./authorize", "w") as f:
+			for line in lines:
+				if line.startswith(username + " "):
+				 line = re.sub(r'"[^"]*"', f'"{new_password}"', line)
+				 f.write(line)
 
 ###
-for line in lines:
-        if line.startswith(username + " "):
-            line = re.sub(r'"[^"]*"', f'"{new_password}"', line)
-        f.write(line)
 
 if __name__ == "__main__":
 	g = Generate()
