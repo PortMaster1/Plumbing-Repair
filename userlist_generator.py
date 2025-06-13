@@ -54,9 +54,29 @@ class Generate:
 class Reissue:
 	def __init__(self, generator=class):
 		self.g = generator
+	
+	def get_accounts(self):
+		with open("./authorize", "r") as f:
+			accounts = []
+			for line in f:
+				if line.startswith("\t\t"):
+					next()
+				accounts.append(line)
 
 	def find_user(self, name):
-		for user in self.g.users:
+		name = name.replace(" ", ".")
+		name = name.lower()
+		name = name.strip()
+		matches = [ user for user in users if user == name ]
+		if matches == []:
+			raise ValueError()
+		accounts = self.get_accounts()
+
+###
+for line in lines:
+        if line.startswith(username + " "):
+            line = re.sub(r'"[^"]*"', f'"{new_password}"', line)
+        f.write(line)
 
 if __name__ == "__main__":
 	g = Generate()
