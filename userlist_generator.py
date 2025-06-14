@@ -1,5 +1,6 @@
 import os, sys, string, secrets
 import subprocess
+import re
 
 entry_template = """username Cleartext-Password := "password"
 		Reply-Message := "Welcome to the network!"
@@ -10,6 +11,7 @@ outfile = "/tmp/authorize"
 
 class Generate:
 	def __init__(self, path="./users.txt"):
+		self._all_accounts = {}
 		self.path = path
 		self.users = []
 		self.accounts = []
@@ -35,20 +37,44 @@ class Generate:
 					users.append(line)
 			self.users = users.copy()
 			return users
-		except e:
+		except FileNotFoundError as e:
 			print("Error reading file.")
 			raise e
-	
+
 	def setup_accounts(self):
 		self.accounts.clear()
+		self.all_accounts.clear()
 		accounts = []
 		for user in self.users:
-			accounts.append(entry_template.replace("username", user).replace("password", self.generate_ppsk()))
+			ppsk = self.generate_ppsk()
+			self._all_accounts[user] = ppsk
+			accounts.append(entry_template.replace("username", user).replace("password", ppsk))
 		for account in accounts:
 			print(account)
 		self.accounts = accounts.copy()
 		return accounts
 	
+	@property
+	def all_accounts(self):
+		if self._all_accounts != {}:
+			return self._all_accounts
+		self.get_users()
+		with open(infile, "r") as f:
+			for line in f:
+				if line.startswith("\t\t"):
+					continue
+				if "Cleartext-Password" in line:
+					username = line.split()[0]
+					password = re.search(r'"([^"]*)"', line).group(1)
+					self._all_accounts[username] = password
+		return self._all_accounts
+	
+	@all_accounts.setter
+	def all_accounts(self, value):
+		if not isinstance(value, dict):
+			raise TypeError("Value must be a dictionary.")
+		self._all_accounts = value
+
 	def write_userfile(self):
 		with open(outfile, "w") as f:
 			f.writelines(self.accounts)

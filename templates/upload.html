@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Setup Accounts</title>
+</head>
+<body>
+    <h1>Setup Accounts</h1>
+    <br>
+    <p>
+        Upload a text file containing user credentials in the format:
+        <code>first_name last_name</code> (one per line).
+    </p>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload Users File:</label>
+        <input type="file" name="file" id="file" accept=".txt" required>
+        <button type="submit">Upload</button>
+</body>
+</html>

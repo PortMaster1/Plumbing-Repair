@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Manage Accounts - FreeRADIUS</title>
+</head>
+<body>
+    <h1>Manage Accounts</h1>
+    <br>
+    <a href="/upload">Upload Users file</a>
+    <br>
+    <div>
+        <h2>Current Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    {{ user.username }} - {{ user.password }}
+                    <form action="/delete_user" method="post" style="display:inline;">
+                        <input type="hidden" name="username" value="{{ user.username }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <form action="/reissue_ppsk" method="post" style="display:inline;">
+                        <input type="hidden" name="username" value="{{ user.username }}">
+                        <button type="submit">Reissue PPSK</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        <p>Created by Dalton Knapp</p>
+</body>
+</html>

@@ -14,13 +14,28 @@ r = Reissue()
 def index():
     return render_template('index.html')
 
-@app.route('setup')
-def setup_accounts():
-    return render_template('setup.html')
-
-@app.route('manage')
+@app.route('/manage')
 def manage_accounts():
-    return render_template('manage.html')
+    if request.method == 'POST':
+        print("Generating accounts...")
+    users = g.all_accounts
+    return render_template('manage.html', users=users)
+
+@app.route('/reissue', methods=['POST'])
+def reissue_account():
+    username = request.form.get('username')
+    if not username:
+        return 'Username is required.', 400
+
+    account = r.find_user(username)
+    if not account:
+        return f'Account for {username} not found.', 404
+
+    ppsk = r.reissue(account)
+    if not ppsk:
+        return 'Failed to reissue account.', 500
+
+    return jsonify({'username': username, 'ppsk': ppsk})
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
