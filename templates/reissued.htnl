@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reissued PPSK - FreeRADIUS</title>
+</head>
+<body>
+    <h1>Successfully Reissued PPSK</h1>
+    <br>
+    <h3>New Credentials:</h3>
+		<p>Username: </p><code>{{ user.username }}</code>
+		<p>Password: </p><code>{{ user.ppsk }}</code>
+    <p>
+        Please inform the user of the updated credentials.
+    </p>
+    <footer>
+        <p> Created by Dalton Knapp (304) 237-0238 </p>
+    </footer>
+</body>
+</html>
