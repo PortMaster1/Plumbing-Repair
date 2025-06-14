@@ -85,7 +85,7 @@ class Reissue:
 	def replace_ppsk(self, account=None):
 		if not account:
 			account = self.account
-		with open("./authorize", "w") as f:
+		with open("./authorize", "r") as f, open("./authorize.tmp", "w") as tenp:
 			for line in lines:
 				if line.startswith(username + " "):
 				 line = re.sub(r'"[^"]*"', f'"{new_password}"', line)
