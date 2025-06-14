@@ -10,6 +10,9 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 g = Generate()
 r = Reissue()
 
+def update_clients(ip, _secret, shortname):
+    pass
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -36,6 +39,14 @@ def reissue_account():
         return 'Failed to reissue account.', 500
 
     return jsonify({'username': username, 'ppsk': ppsk})
+
+@app.route('/add_client')
+def add_client():
+    if request.method == 'POST':
+        ip = request["ip_address"]
+        _secret = request["secret"]
+        shortname = request["shortname"]
+        update_clients(ip, _secret, shortname)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
