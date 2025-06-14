@@ -14,6 +14,14 @@ r = Reissue()
 def index():
     return render_template('index.html')
 
+@app.route('setup')
+def setup_accounts():
+    return render_template('setup.html')
+
+@app.route('manage')
+def manage_accounts():
+    return render_template('manage.html')
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
