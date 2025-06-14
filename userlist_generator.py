@@ -1,12 +1,12 @@
 import os, sys, string, secrets
-
+import subprocess
 
 entry_template = """username Cleartext-Password := "password"
 		Reply-Message := "Welcome to the network!"
 """
 
-infile = "./authorize"
-outfile = "./authorize.tmp"
+infile = "/etc/freeradius/3.0/mods-config/files/authorize"
+outfile = "/tmp/authorize"
 
 class Generate:
 	def __init__(self, path="./users.txt"):
@@ -50,9 +50,9 @@ class Generate:
 		return accounts
 	
 	def write_userfile(self):
-		with open("./authorize","r") as infile, open("./authorize.tmp","w") as outfile:
-			for line in 
+		with open(outfile, "w") as f:
 			f.writelines(self.accounts)
+		subprocess.run(["sudo", "mv", outfile, infile])
 
 
 class Reissue:
@@ -61,7 +61,7 @@ class Reissue:
 		self.account = None
 	
 	def get_accounts(self):
-		with open("./authorize", "r") as f:
+		with open(infile, "r") as f:
 			accounts = []
 			for line in f:
 				if line.startswith("\t\t"):
@@ -88,11 +88,12 @@ class Reissue:
 			account = self.account
 		ppsk = self.g.generate_ppsk()
 		print(f"User '{username}' now has password '{ppsk}'")
-		with open("./authorize", "r") as infile, open("./authorize.tmp", "w") as outfile:
-			for line in infilw:
+		with open(infile, "r") as inputfile, open(outfile, "w") as outputfile:
+			for line in inputfile:
 				if line.startswith(username + " "):
 				 line = re.sub(r'"[^"]*"', f'"{ppsk}"', line)
-				f.write(line)
+				outputfile.write(line)
+		subprocess.run(["sudo", "mv", outfile, infile])
 
 ###
 
