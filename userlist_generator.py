@@ -8,28 +8,6 @@ entry_template = """username Cleartext-Password := "password"
 infile = "./authorize"
 outfile = "./authorize.tmp"
 
-class Filesystem:
-	def read_userfile(self, path="./users.txt"):
-		users = []
-		with open(path, "r") as f:
-			for line in f:
-				if line == "\n":
-					continue
-				users.append(line)
-			return users
-	
-	def read_authfile(self, path="./authorize"):
-		accounts = []
-		with open(path, "r") as f:
-			for line in f:
-				if line.startswith("\t\t"):
-					continue
-				accounts.append(line)
-		return accounts
-	
-	@setter.userfile
-	def write_userfile(self, path
-
 class Generate:
 	def __init__(self, path="./users.txt"):
 		self.path = path
@@ -72,7 +50,8 @@ class Generate:
 		return accounts
 	
 	def write_userfile(self):
-		with open("./authorize", "w") as f:
+		with open("./authorize","r") as infile, open("./authorize.tmp","w") as outfile:
+			for line in 
 			f.writelines(self.accounts)
 
 
@@ -101,17 +80,19 @@ class Reissue:
 				found = account
 		if not found:
 			raise ValueError()
-		self.accounr = account
+		self.account = account
 		return account
 
-	def replace_ppsk(self, account=None):
+	def replace_ppsk(self, username, account=None):
 		if not account:
 			account = self.account
-		with open("./authorize", "r") as f, open("./authorize.tmp", "w") as tenp:
-			for line in lines:
+		ppsk = self.g.generate_ppsk()
+		print(f"User '{username}' now has password '{ppsk}'")
+		with open("./authorize", "r") as infile, open("./authorize.tmp", "w") as outfile:
+			for line in infilw:
 				if line.startswith(username + " "):
-				 line = re.sub(r'"[^"]*"', f'"{new_password}"', line)
-				 f.write(line)
+				 line = re.sub(r'"[^"]*"', f'"{ppsk}"', line)
+				f.write(line)
 
 ###
 
