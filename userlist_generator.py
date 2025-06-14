@@ -8,6 +8,28 @@ entry_template = """username Cleartext-Password := "password"
 infile = "./authorize"
 outfile = "./authorize.tmp"
 
+class Filesystem:
+	def read_userfile(self, path="./users.txt"):
+		users = []
+		with open(path, "r") as f:
+			for line in f:
+				if line == "\n":
+					continue
+				users.append(line)
+			return users
+	
+	def read_authfile(self, path="./authorize"):
+		accounts = []
+		with open(path, "r") as f:
+			for line in f:
+				if line.startswith("\t\t"):
+					continue
+				accounts.append(line)
+		return accounts
+	
+	@setter.userfile
+	def write_userfile(self, path
+
 class Generate:
 	def __init__(self, path="./users.txt"):
 		self.path = path
@@ -64,7 +86,7 @@ class Reissue:
 			accounts = []
 			for line in f:
 				if line.startswith("\t\t"):
-					next()
+					continue
 				accounts.append(line)
 		return accounts
 
