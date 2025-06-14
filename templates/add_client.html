@@ -2,3 +2,27 @@
 read -p "Enter Access Point IP address: " ip
 read -p "Enter shared secret: " secret
 read -p "Enter shortname: " shortname
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Client - FreeRADIUS</title>
+</head>
+<body>
+    <h1>Add Client</h1>
+    <br>
+    <div>
+        <form action="/add_client" method="post">
+            <label for="ip_address">Enter Access Point IP address:</label>
+            <input type="text" id="ip_address" name="ip_address">
+            <label for="secret">Enter shared secret:</label>
+            <input type="text" id="secret" name="secret">
+            <label for="shortname">Enter shortname:</label>
+            <button type="submit">Add Client</button>
+    </div>
+    <footer>
+        <p> Created by Dalton Knapp (304) 237-0238 </p>
+    </footer>
+</body>
+</html>
