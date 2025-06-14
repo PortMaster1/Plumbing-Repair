@@ -56,7 +56,9 @@ class Generate:
 
 
 class Reissue:
-	def __init__(self, generator=class):
+	def __init__(self, generator=None):
+		if not generator:
+			generator = Generate()
 		self.g = generator
 		self.account = None
 	
@@ -91,9 +93,9 @@ class Reissue:
 		with open(infile, "r") as inputfile, open(outfile, "w") as outputfile:
 			for line in inputfile:
 				if line.startswith(username + " "):
-				 line = re.sub(r'"[^"]*"', f'"{ppsk}"', line)
+					line = re.sub(r'"[^"]*"', f'"{ppsk}"', line)
 				outputfile.write(line)
-		subprocess.run(["sudo", "mv", outfile, infile])
+			subprocess.run(["sudo", "mv", outfile, infile])
 
 ###
 
