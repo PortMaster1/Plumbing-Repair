@@ -35,8 +35,8 @@ def reissue_account():
     ppsk = r.reissue(account)
     if not ppsk:
         return 'Failed to reissue account.', 500
-    return render_twmplate("reissued.html")
-    return jsonify({'username': username, 'ppsk': ppsk})
+    user = {"name": username, "ppsk": ppsk}
+    return render_twmplate("reissued.html", user=user)
 
 @app.route('/add_client')
 def add_client():
