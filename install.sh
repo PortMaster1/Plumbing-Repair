@@ -14,6 +14,7 @@ chmod +x update_clients.sh
 
 pip install mysql-connector-python --break-system-packages
 
+# Install daloradius
 cd /var/www/html
 wget https://github.com/lirantal/daloradius/archive/1.3.zip
 unzip 1.3.zip
