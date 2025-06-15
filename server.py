@@ -29,15 +29,13 @@ def reissue_account():
     username = request.form.get('username')
     if not username:
         return 'Username is required.', 400
-
     account = r.find_user(username)
     if not account:
-        return f'Account for {username} not found.', 404
-
+        return f'Account for {username} not found.', 400
     ppsk = r.reissue(account)
     if not ppsk:
         return 'Failed to reissue account.', 500
-
+    return render_twmplate("reissued.html")
     return jsonify({'username': username, 'ppsk': ppsk})
 
 @app.route('/add_client')
