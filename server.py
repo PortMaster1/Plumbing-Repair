@@ -1,9 +1,11 @@
 import sys, os, requests, secrets
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 
+# Relative imports
 from userlist_generator import Generate, Reissue
 import sql_connector
 
+# Setup the web server
 app = Flask(__name__)
 UPLOAD_FOLDER = "."
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
