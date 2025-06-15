@@ -45,5 +45,8 @@ def sql_thread():
     while True:
         user = sql_connector()
         if user:
-            r.replace_ppsk(user)
+            r.find_user(user)
+            ppsk = r.replace_ppsk(user)
+            acct = {"name": user, "ppsk": ppsk}
+            print(f'User "{user}" now has ppsk "{ppsk}"'
         sleep(60) # Sleeps for 1 minute before checking again.
