@@ -6,7 +6,6 @@ sudo apt install apache2 php php-mysql mariadb-server -y
 # Then configure database and install daloRADIUS from GitHub
 
 
-
 sudo systemctl enable freeradius
 sudo systemctl start freeradius
 
