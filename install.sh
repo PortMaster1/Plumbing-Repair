@@ -27,4 +27,11 @@ sudo chown -R www-data:www-data daloradius
 sudo chmod 664 daloradius/library/daloradius.conf.php
 sudo systemctl restart freeradius
 
+# Install radius-api
+sudo git clone https://github.com/jozefrebjak/radius-api.git /opt/radius-api
+cd /opt/radius-api
+npm install
+
+# go back to chatgpt its complicated
+
 echo "You do not need to run this script again, as it was stricly for install and setup of the FreeRADIUS client."
