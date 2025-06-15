@@ -21,4 +21,6 @@ sudo systemctl start freeradius
 
 chmod +x update_clients.sh
 
+pip install mysql-connector-python --break-system-packages
+
 echo "You do not need to run this script again, as it was stricly for install and setup of the FreeRADIUS client."
