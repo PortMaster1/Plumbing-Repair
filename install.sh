@@ -9,6 +9,8 @@ sudo mysql_secure_installation
 sudo systemctl enable freeradius
 sudo systemctl start freeradius
 
+chmod +x update_clients.sh
+
 # Setup the AP as a client:
 
 # Prompt for info
