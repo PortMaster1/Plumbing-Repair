@@ -13,7 +13,7 @@ To set up MySQL server, run `sudo mysql_secure_installation` after `install.sh` 
 
 to config db:
 run `sudo mysql -u root -p`
-Mow inside of MySQL prompt:
+Now inside of MySQL prompt:
 ```sql
 -- Create database
 CREATE DATABASE radius;
