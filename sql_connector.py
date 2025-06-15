@@ -5,6 +5,17 @@ from time import sleep
 g = Generate()
 r = Reissue()
 
+_new_accounts = {}
+
+@property
+def new_accounts():
+    return _new_accounts
+
+@new_accounts.setter
+def new_accounts(value):
+    _new_accounts = {}
+    _new_accounts = value
+
 def sql_connector():
     # Connect to your FreeRADIUS SQL DB
     conn = mysql.connector.connect(
@@ -49,4 +60,5 @@ def sql_thread():
             ppsk = r.replace_ppsk(user)
             acct = {"name": user, "ppsk": ppsk}
             print(f'User "{user}" now has ppsk "{ppsk}"'
+            new_accounts[user] = ppsk
         sleep(60) # Sleeps for 1 minute before checking again.
