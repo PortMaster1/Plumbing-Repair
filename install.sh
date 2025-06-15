@@ -3,7 +3,6 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install freeradius -y
 
 sudo apt install apache2 php php-mysql mariadb-server -y
-sudo mysql_secure_installation
 # Then configure database and install daloRADIUS from GitHub
 
 sudo ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/
