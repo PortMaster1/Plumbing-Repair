@@ -1,4 +1,4 @@
-import sys, os, requests
+import sys, os, requests, secrets
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 
 from userlist_generator import Generate, Reissue
@@ -11,7 +11,7 @@ g = Generate()
 r = Reissue()
 
 def update_clients(ip, _secret, shortname):
-    pass
+    subprocess.run(["sudo", "./update_clients", ip, _secret, shortname])
 
 @app.route('/')
 def index():
