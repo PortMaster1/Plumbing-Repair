@@ -6,6 +6,13 @@
 <body>
     <h1>FreeRADIUS WiFi Manager</h1>
     <br>
+    {% if new %}
+        <ul>
+            {% for user in new %}
+            <li>Username: {{ user }} PPSK: {{ new[user] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <a href="/manage">Manage Accounts</a>
     <p>
         If you are setting up FreeRADIUS for the first time, please go to <a href="/upload">Setup Accounts</a> to upload a file containing user credentials.
