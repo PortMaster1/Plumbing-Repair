@@ -45,5 +45,5 @@ def sql_thread():
     while True:
         user = sql_connector()
         if user:
-            r.reissue(user)
+            r.replace_ppsk(user)
         sleep(60) # Sleeps for 1 minute before checking again.
