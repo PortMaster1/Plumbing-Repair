@@ -34,6 +34,8 @@ def sql_connector():
         if len(devices) > 2:
             print(f"⚠️  User '{user}' has {len(devices)} active devices: {devices}")
             return user
+        else:
+            return None
     
     # Clean up
     cursor.close()
@@ -41,5 +43,7 @@ def sql_connector():
 
 def sql_thread():
     while True:
-        sql_connector()
+        user = sql_connector()
+        if user:
+            r.reissue(user)
         sleep(60) # Sleeps for 1 minute before checking again.
