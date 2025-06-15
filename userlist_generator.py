@@ -121,7 +121,8 @@ class Reissue:
 				if line.startswith(username + " "):
 					line = re.sub(r'"[^"]*"', f'"{ppsk}"', line)
 				outputfile.write(line)
-			subprocess.run(["sudo", "mv", outfile, infile])
+		subprocess.run(["sudo", "mv", outfile, infile])
+		return ppsk
 
 ###
 
