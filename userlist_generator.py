@@ -1,5 +1,10 @@
-# Created by Dalton Knapp
-
+# =============================================================================
+#  File: userlist_generator.py
+#  Author: Dalton Knapp
+#  Description: Rewrites a csv file to match formatting for FreeRADIUS and generates PPSK’s.
+#  Created: 2025-06-10
+#  License: MIT
+# =============================================================================
 import os, sys, requests, csv, string, secrets
 
 
